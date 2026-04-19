@@ -29,45 +29,53 @@ The objective was to analyze ride data to identify key reasons behind ride cance
 
 ---
 
-### 🧠 SQL Analysis Approach
+### 🧾 SQL Analysis
 
-To understand ride performance and cancellation patterns, SQL queries were used to explore the dataset from multiple perspectives:
+SQL was used to extract insights, calculate KPIs, and understand booking, cancellation, and customer behavior patterns.
 
-#### 📊 Booking & Revenue Analysis
+#### 🔹 Key Areas Covered
+
+**1. Booking & Revenue Analysis**
 
 * Total bookings by vehicle type
-* Revenue contribution by vehicle category
-  👉 Purpose: Identify high-demand and high-revenue segments
+* Revenue contribution by vehicle type
+* Successful vs cancelled bookings
 
-#### 📈 Customer Behavior Analysis
+**2. Customer Analysis**
 
 * Total rides per customer
-* Frequent users (more than 5 rides)
-  👉 Purpose: Understand customer engagement
+* Frequent customers (more than 5 rides)
+* Top customers by number of bookings
 
-#### ❌ Cancellation Analysis (Core Focus)
+**3. Cancellation Analysis (Core Focus)**
 
-* Customer vs driver cancellations
-* Cancellation reasons distribution
-* Vehicle-type and location-wise cancellations
-  👉 Purpose: Identify root causes of cancellations
+* Customer vs Driver cancellations
+* Cancellation reasons (sorted by frequency)
+* Vehicle-type-wise cancellation trends
+* Location-wise cancellation hotspots
 
-#### ⭐ Service Quality Analysis
+**4. Ratings & Experience Analysis**
 
 * Average driver and customer ratings
-* Low-rating & high-cancellation locations
-  👉 Purpose: Detect service quality issues
+* Low-rating + high-cancellation locations
 
-#### 📍 Location-Based Insights
+**5. Operational Insights**
 
-* High booking locations
-* Locations with maximum cancellations
-  👉 Purpose: Identify geographic problem areas
+* High-demand pickup locations
+* Payment method usage (e.g., UPI)
+* Incomplete rides and reasons
 
 ---
 
-### ⚙️ Example SQL Query
+### 🔍 Sample SQL Queries
 
+```sql
+-- Total bookings per vehicle type
+SELECT vehicle_type, COUNT(*) AS total_bookings
+FROM bookings
+GROUP BY vehicle_type;
+
+-- Customer vs Driver cancellations
 SELECT 'Customer Cancel' AS type, COUNT(*) AS total
 FROM bookings
 WHERE cancelled_rides_by_customer = 1
@@ -75,6 +83,15 @@ UNION ALL
 SELECT 'Driver Cancel' AS type, COUNT(*) AS total
 FROM bookings
 WHERE cancelled_rides_by_driver = 1;
+
+-- Location-wise cancellations
+SELECT pickup_location,
+       COUNT(*) AS total_rides,
+       SUM(cancelled_rides_by_customer + cancelled_rides_by_driver) AS cancellations
+FROM bookings
+GROUP BY pickup_location
+ORDER BY cancellations DESC;
+```
 
 ---
 
@@ -87,7 +104,7 @@ Analysis revealed that ride cancellations were primarily driven by driver-relate
 * ~15% were caused by **driver personal or vehicle-related issues**
 * ~14% cancellations were due to **AC or comfort-related complaints**
 
-👉 Overall Insight:
+👉 Overall insight:
 Driver behavior and availability were the **major drivers of cancellations**, with delayed pickup movement being a key customer pain point
 
 ---
@@ -98,39 +115,37 @@ Driver behavior and availability were the **major drivers of cancellations**, wi
 
 * Penalize or warn drivers who do not move toward pickup location
 * Provide incentives for drivers with **high acceptance and low cancellation rates**
-  → Reason: Encourages responsible behavior and improves ride completion
+  → Reason: Encourages responsible driver behavior and improves ride completion
 
 #### 2. Driver Quality Monitoring
 
 * Identify drivers with repeated cancellations
-* Provide training or restrict access for poor performers
+* Provide training or temporarily restrict access for poor performers
 * Improve onboarding standards
-  → Reason: Ensures platform reliability
+  → Reason: Ensures only reliable drivers remain active on the platform
 
 #### 3. Vehicle & Comfort Compliance
 
 * Conduct regular vehicle inspections (AC, cleanliness, condition)
 * Penalize or remove non-compliant drivers
-  → Reason: Improves customer experience
+  → Reason: Improves customer experience and reduces comfort-related cancellations
 
 ---
 
 ### 📊 Success Measurement (Expected Impact)
 
-* Potential reduction in **overall cancellation rate**
-* Improvement in **ride success rate and customer satisfaction**
-* Decrease in **driver-related complaints and repeated cancellations**
+* Potential reduction in overall cancellation rate**
+* Improvement in ride success rate and customer satisfaction**
+* Decrease in driver-related complaints and repeated cancellations**
 
 ---
 
 ### 📌 Business Impact (Potential)
 
-* Identified operational gaps affecting **ride completion and user experience**
-* Insights can support **better driver management strategies**
-* Recommendations may help improve **platform reliability and customer trust**
+* Identified key operational gaps affecting **ride completion and customer experience**
+* Insights can support **better driver management and monitoring strategies**
+* Recommendations may help improve **platform reliability and user trust**
 
 ---
 
-### 📎 Project Links
 
-* GitHub: https://github.com/bhavika_gandhi
