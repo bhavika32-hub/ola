@@ -33,14 +33,17 @@ To identify key factors affecting ride cancellations and improve overall platfor
 * Data included: booking status, cancellation reasons, driver behavior, ride details, and revenue impact  
 
 ---
+## 📊 KPI Tracking
 
-## KPI Tracking
-
-* Business KPIs: Bookings, Revenue, Success Rate, Total Revenue Loss 
-* Customer KPIs: Customer cancellation %, ratings  
-* Driver KPIs: Driver cancellation %, driver rating  
-* Operational KPI: Cancellation rate by vehicle type  
-
+- Total Bookings  
+- Total Revenue  
+- Total Revenue Loss 
+- Ride Success Rate  
+- Overall Cancellation Rate  
+- Customer Cancellation %  
+- Driver Cancellation %  
+- Average Driver Rating  
+- Average Customer Rating  
 ---
 
 ## Key Insights
